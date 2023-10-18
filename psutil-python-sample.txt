@@ -1,0 +1,98 @@
+psutil is a Python library that provides an interface for retrieving information on system utilization (CPU, memory, disks, network, sensors) and system uptime. Here are some basic examples of how to use psutil:
+
+1. Install psutil:
+
+You can install psutil using pip:
+
+bash
+
+pip install psutil
+
+2. Import the Library:
+
+You need to import the psutil module in your Python script:
+
+python
+
+import psutil
+
+3. Getting System Information:
+
+You can retrieve information about the CPU, memory, and other system-related details:
+
+python
+
+# Get CPU information
+cpu_info = psutil.cpu_percent(interval=1, percpu=True)
+print("CPU Usage:", cpu_info)
+
+# Get memory information
+memory_info = psutil.virtual_memory()
+print("Memory Usage:", memory_info)
+
+# Get disk usage
+disk_info = psutil.disk_usage('/')
+print("Disk Usage:", disk_info)
+
+4. Getting Network Information:
+
+You can access network-related information, including network interfaces and network connections:
+
+python
+
+# Get network interfaces
+network_interfaces = psutil.net_if_addrs()
+print("Network Interfaces:", network_interfaces)
+
+# Get network connections
+network_connections = psutil.net_connections(kind='inet')
+print("Network Connections:", network_connections)
+
+5. Monitoring System Usage Over Time:
+
+You can monitor system usage over a period of time by repeatedly querying system information. Here's an example of monitoring CPU usage over a period of 5 seconds:
+
+python
+
+import time
+
+for _ in range(5):
+    cpu_info = psutil.cpu_percent(interval=1, percpu=True)
+    print("CPU Usage:", cpu_info)
+    time.sleep(1)
+
+6. Process Management:
+
+You can manage and monitor processes using psutil. For example, you can list running processes, get detailed information about a specific process, and terminate processes:
+
+python
+
+# Get a list of running processes
+process_list = psutil.process_iter(attrs=['pid', 'name'])
+for process in process_list:
+    print(process.info)
+
+# Get detailed information about a specific process (replace with an actual PID)
+pid = 12345
+process = psutil.Process(pid)
+print("Process Name:", process.name())
+print("Process Status:", process.status())
+
+# Terminate a process (be careful when using this)
+process.terminate()
+
+7. Sensor Information (Windows and Linux):
+
+On some platforms (e.g., Windows and Linux), you can access sensor information like temperature and fan speed:
+
+python
+
+# Get sensor information (Linux and Windows)
+sensors = psutil.sensors_temperatures()
+print("Sensor Information:", sensors)
+
+# Get fan speed information (Linux and Windows)
+fan_speed = psutil.sensors_fans()
+print("Fan Speed Information:", fan_speed)
+
+These are basic examples of how to use psutil for system and process information retrieval, monitoring, and management. psutil is a powerful library for system monitoring and management, and it provides various other features for system administrators and developers to work with system-related data and processes. Be sure to refer to the official documentation for more advanced use cases: psutil Documentation.
